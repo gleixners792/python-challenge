@@ -11,7 +11,8 @@ import os
 # Module for reading CSV files
 import csv
 
-csvpath = r"C:\Users\gleix\git\python-challenge\PyBank\Resources\Homework_03-Python_Instructions_PyBank_Resources_budget_data.csv"
+# csvpath = r"C:\Users\gleix\git\python-challenge\PyBank\Resources\Homework_03-Python_Instructions_PyBank_Resources_budget_data.csv"
+csvpath = os.path.join("..","PyBank","Resources","Homework_03-Python_Instructions_PyBank_Resources_budget_data.csv")
 
 Monthcnt = 0
 Averagecnt = 0
@@ -69,7 +70,8 @@ with open(csvpath) as csvfile:
 AverageChange = TotalChange / Averagecnt
 
 
-# print("End of Data")
+
+# Print Results to the screen.
 print(" ")
 print("Financial Analysis")
 print("------------------------------")
@@ -79,3 +81,18 @@ print("Average  Change: $" + str(round(AverageChange,2)))
 print("Greatest Increase in Profits: " + str(DateGreatestIncrease) + " ($" + str(GreatestIncrease) + ")")
 print("Greatest Decrease in Profits: " + str(DateGreatestDecrease) + " ($" + str(GreatestDecrease) + ")")
 
+# Save Results to a csv File.
+
+output_path = os.path.join("..","PyBank","analysis","results.csv")
+
+with open(output_path, 'w', newline='') as csvfile:
+    
+    csvwriter = csv.writer(csvfile, delimiter=',')
+    
+    csvwriter.writerow(["Financial Analysis"])
+    csvwriter.writerow(["------------------------------"])
+    csvwriter.writerow(["Total Months: " + str(Monthcnt)])
+    csvwriter.writerow(["Total: $" + str(TotalProfit)])
+    csvwriter.writerow(["Average  Change: $" + str(round(AverageChange,2))])
+    csvwriter.writerow(["Greatest Increase in Profits: " + str(DateGreatestIncrease) + " ($" + str(GreatestIncrease) + ")"])
+    csvwriter.writerow(["Greatest Decrease in Profits: " + str(DateGreatestDecrease) + " ($" + str(GreatestDecrease) + ")"])
